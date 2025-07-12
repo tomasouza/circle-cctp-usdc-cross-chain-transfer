@@ -110,28 +110,27 @@ They require USDC to be locked up in third-party smart contracts, which reduces 
 
 CCTP enables seamless and secure transfers of USDC across blockchains through two transfer methods: Standard Transfer and Fast Transfer. Both involve burning USDC on the source chain and minting it on the destination chain, but the steps and speed differ:
 
-
-Standard Transfer (Available in CCTP V1 and CCTP V2)
+## Standard Transfer (Available in CCTP V1 and CCTP V2)
 Standard Transfer is the default method for transferring USDC across blockchains. It relies on transaction finality on the source chain and uses Circle's Attestation Service to enable standard-finality (hard finality) transfers. The process includes the following steps:
 
-Initiation. A user accesses an app powered by either CCTP V1 or CCTP V2 and initiates a Standard Transfer of USDC, specifying the recipient's wallet address on the destination chain.
-Burn Event. The app facilitates a burn of the specified USDC amount on the source blockchain.
-Attestation. Circle's Attestation Service observes the burn event and, after observing hard finality on the source chain, issues a signed attestation. Hard finality ensures the burn is irreversible (about 13 to 19 minutes for Ethereum and L2 chains.)
-Mint Event. The app retrieves the signed attestation from Circle and uses it to mint USDC on the destination chain. For CCTP V2, no fee is currently collected onchain during this step, but that may change with advance notice. For details, see the CCTP fee schedule.
-Completion. The recipient wallet address receives the newly minted USDC on the destination blockchain, completing the transfer.
+- **Initiation.** A user accesses an app powered by either CCTP V1 or CCTP V2 and initiates a Standard Transfer of USDC, specifying the recipient's wallet address on the destination chain.
+- **Burn Event.** The app facilitates a burn of the specified USDC amount on the source blockchain.
+- **Attestation.** Circle's Attestation Service observes the burn event and, after observing hard finality on the source chain, issues a signed attestation. Hard finality ensures the burn is irreversible (about 13 to 19 minutes for Ethereum and L2 chains.)
+- **Mint Event.** The app retrieves the signed attestation from Circle and uses it to mint USDC on the destination chain. For CCTP V2, no fee is currently collected onchain during this step, but that may change with advance notice. For details, see the CCTP fee schedule.
+- **Completion.** The recipient wallet address receives the newly minted USDC on the destination blockchain, completing the transfer.
 Standard Transfer prioritizes reliability and security, making it suitable for scenarios where finality wait times are acceptable.
 
 
-Fast Transfer (Available only in CCTP V2)
+## Fast Transfer (Available only in CCTP V2)
 Fast Transfer is an advanced feature of CCTP V2 designed for speed-sensitive use cases. It leverages Circle's Attestation Service and Fast Transfer Allowance to enable faster-than-finality (soft finality) transfers. The process involves the following steps:
 
-Initiation. A user accesses an app powered by CCTP V2 and initiates a Fast Transfer of USDC, specifying the recipient's wallet address on the destination chain.
-Burn Event. The app facilitates a burn of the specified USDC amount on the source blockchain.
-Instant Attestation. Circle's Attestation Service attests to the burn event after soft finality (which varies per chain) and issues a signed attestation.
+- **Initiation.** A user accesses an app powered by CCTP V2 and initiates a Fast Transfer of USDC, specifying the recipient's wallet address on the destination chain.
+- **Burn Event.** The app facilitates a burn of the specified USDC amount on the source blockchain.
+- **Instant Attestation.** Circle's Attestation Service attests to the burn event after soft finality (which varies per chain) and issues a signed attestation.
 Fast Transfer Allowance Backing. Until hard finality is reached, the burned USDC amount is backed by Circle's Fast Transfer Allowance. The Fast Transfer Allowance is temporarily debited by the burn amount.
-Mint event. The app retrieves the signed attestation from Circle and uses it to mint USDC on the destination chain. A fee is collected onchain during this process.
+- **Mint event.** The app retrieves the signed attestation from Circle and uses it to mint USDC on the destination chain. A fee is collected onchain during this process.
 Fast Transfer Allowance Replenishment. Once the burn reaches finality on the source chain, the corresponding amount is credited back to Circle's Fast Transfer Allowance.
-Completion. The recipient wallet address receives the newly minted USDC on the destination blockchain, completing the transfer.
+- **Completion.** The recipient wallet address receives the newly minted USDC on the destination blockchain, completing the transfer.
 Fast Transfer is ideal for low-latency use cases, enabling USDC transfers to be completed in seconds while maintaining trust and security via Circle's Fast Transfer Allowance.
 
 # 🛡️ What is the Attestation Service?
