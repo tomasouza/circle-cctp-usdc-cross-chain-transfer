@@ -75,34 +75,33 @@ Ethereum and Avalanche don’t share a native way to communicate directly. So if
 🌉 What are traditional bridges?
 Traditional blockchain bridges were created to solve this problem. They allow you to move assets like USDC from one chain to another, usually in one of two ways:
 
-Lock-and-Mint
+## Lock-and-Mint
 
-You lock the USDC on chain A (e.g., Ethereum).
+- You lock the USDC on chain A (e.g., Ethereum).
 
-A new, “wrapped” version of that USDC is minted on chain B (e.g., Avalanche).
+- A new, “wrapped” version of that USDC is minted on chain B (e.g., Avalanche).
 
-Example: If you lock 100 USDC on Ethereum, you get 100 “Wrapped USDC” on Avalanche.
+- Example: If you lock 100 USDC on Ethereum, you get 100 “Wrapped USDC” on Avalanche.
 
-Liquidity Pool Bridging
+## Liquidity Pool Bridging
 
-Instead of minting, bridges use liquidity pools on both chains.
+- Instead of minting, bridges use liquidity pools on both chains.
 
-You send USDC to the bridge on Ethereum, and it gives you USDC from its pool on Avalanche.
+- You send USDC to the bridge on Ethereum, and it gives you USDC from its pool on Avalanche.
 
-Think of it like a bank with vaults in two cities — you deposit in one, and they give you cash from the other.
+- Think of it like a bank with vaults in two cities — you deposit in one, and they give you cash from the other.
 
 ⚠️ What's the issue with these bridges?
 They require USDC to be locked up in third-party smart contracts, which reduces how efficiently that money can be used elsewhere.
 
-They introduce trust risks:
+- They introduce trust risks:
 
-You must trust the bridge not to get hacked.
+- You must trust the bridge not to get hacked.
 
-You must trust the bridge operators not to cheat.
+- You must trust the bridge operators not to cheat.
 
-These bridges are also targets for attacks, and many have been exploited in the past.
+- These bridges are also targets for attacks, and many have been exploited in the past.
 
 🎯 Why CCTP is better
-Circle’s Cross-Chain Transfer Protocol (CCTP) improves on this by burning USDC on the source chain and minting real, native USDC on the destination chain — removing the need for wrapping or pooled liquidity.
 
-Let me know if you’d like me to explain how CCTP works in a simple flow too!
+- Circle’s Cross-Chain Transfer Protocol (CCTP) improves on this by burning USDC on the source chain and minting real, native USDC on the destination chain — removing the need for wrapping or pooled liquidity.
