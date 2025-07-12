@@ -141,27 +141,28 @@ This attestation can then be used on the destination chain to mint an equivalent
 🔄 How It Works (Simple Flow)
 Let’s say you're transferring 100 USDC from Ethereum to Avalanche using CCTP:
 
-Burn on Source Chain
+- Burn on Source Chain
 You call the burn function in the CCTP smart contract on Ethereum. This destroys 100 USDC.
 
-Circle Watches the Event
+- Circle Watches the Event
 Circle’s Attestation Service monitors Ethereum and sees that a valid burn occurred.
 
-Attestation Is Issued
-Circle generates a signed attestation containing:
+- Attestation Is Issued
 
-Source chain
+### Circle generates a signed attestation containing:
 
-Burned amount
+- Source chain
 
-Sender
+- Burned amount
 
-Nonce
+- Sender
 
-Destination chain, etc.
+- Nonce
+
+- Destination chain, etc.
 This proves the burn is legitimate and is cryptographically verifiable.
 
-Redeem on Destination Chain
+- Redeem on Destination Chain
 You submit this attestation to the CCTP contract on Avalanche.
 It verifies the signature and, if valid, mints 100 real, native USDC to your wallet.
 
