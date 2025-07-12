@@ -61,6 +61,8 @@ The script has 5 steps:
 
     ```
 
+# Circle CCTP - Cross Chain Transfer Protocol
+
 ✅ What's the problem?
 Blockchains like Ethereum, Avalanche, and others usually can't talk to each other directly — they work in isolated environments (called “silos”). That means assets and data can't naturally move between them.
 
