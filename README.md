@@ -233,4 +233,69 @@ It verifies the signature and, if valid, mints 100 real, native USDC to your wal
    ⮕ User calls `receiveMessage()` on MessageTransmitter
    ⮕ Attestation is verified
    ⮕ TokenMessenger calls USDC contract to mint tokens to the recipient
+
+# CCTP Fast Transfer Allowance
+
+## ⚡ What is Fast Transfer Allowance?
+The Fast Transfer Allowance is a per-chain quota set by Circle that allows users to perform instant, trustless USDC mints on the destination chain without delay, as long as the transfer is within a safe volume threshold.
+
+Think of it as a “pre-approved minting limit” that enables transfers to settle faster — before the full attestation confirmation is complete.
+
+## 🔒 Why Does It Exist?
+To allow fast mints while limiting risk, Circle sets this allowance so:
+
+Transfers under the allowance can mint USDC immediately on the destination chain.
+
+Transfers over the allowance require full finality and may take longer or be queued until more allowance becomes available.
+
+## 💰 How Much Is the Allowance?
+The actual amount varies per chain and is managed by Circle.
+
+It is not publicly fixed, and Circle adjusts it based on:
+
+- Liquidity risks
+
+- Security conditions
+
+- Market demand
+
+You can check the current allowance per domain by calling the CCTP contracts (explained below).
+
+## 🧠 How to Check Fast Transfer Allowance
+You can use the getFastTransferAllowance() function on the TokenMessenger contract for your chain.
+
+Example in ethers.js:
+
+```ts
+
+const tokenMessenger = new ethers.Contract(
+  TOKEN_MESSENGER_ADDRESS,
+  TOKEN_MESSENGER_ABI,
+  provider
+);
+
+const allowance = await tokenMessenger.getFastTransferAllowance();
+console.log(`Current fast transfer allowance: ${ethers.utils.formatUnits(allowance, 6)} USDC`);
+
+```
+
+## 🔼 How to Increase the Fast Transfer Allowance?
+You can’t directly increase it yourself — only Circle can increase the allowance by allocating more liquidity and trust capacity to a chain.
+
+However, you can:
+
+- Monitor the allowance and time your transfers accordingly.
+
+- If you’re an institutional partner, you can request higher thresholds from Circle via support or partnership channels.
+
+## 🚨 What Happens If You Exceed the Allowance?
+If your transfer amount is larger than the remaining fast allowance, then:
+
+- Your burn will still go through.
+
+- But your mint will be delayed until:
+
+- Final attestation is confirmed.
+
+- Sufficient fast allowance is replenished.
     
