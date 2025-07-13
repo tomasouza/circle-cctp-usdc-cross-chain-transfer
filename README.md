@@ -171,4 +171,66 @@ It verifies the signature and, if valid, mints 100 real, native USDC to your wal
 
 ✅ No Middlemen: There’s no need to rely on a bridge operator or liquidity pool.
 
+# CCTP Transfer contracts interactions
+
+## 🪙 1. USDC Contract
+**What it is:** The standard ERC-20 contract for native USDC on a given blockchain (like Ethereum, Avalanche, etc.).
+
+**Role in CCTP:**
+
+- Burns USDC on the source chain (when you're sending).
+
+- Mints USDC on the destination chain (when you're receiving).
+
+- Ownership: Controlled by Circle, ensuring only authorized minting happens.
+
+- Key point: This is not a wrapped version — it’s real, native USDC.
+
+## 📬 2. TokenMessenger Contract
+**What it is:** A CCTP smart contract that users interact with to initiate cross-chain transfers.
+
+**Role in CCTP:**
+
+- Coordinates the burning of USDC on the source chain.
+
+- Prepares a cross-chain message that includes transfer details.
+
+- Sends that message to the MessageTransmitter for attestation and relaying.
+
+**Key actions:**
+
+**depositForBurn():** Called by the user to start a transfer.
+
+**Think of it as:** The contract that bridges your wallet with the CCTP protocol logic.
+
+## ✉️ 3. MessageTransmitter Contract
+**What it is:** The messaging relay layer used by Circle.
+
+**Role in CCTP:**
+
+- Verifies attestations from Circle’s Attestation Service.
+
+- Delivers the message to the destination chain’s TokenMessenger.
+
+- Authorizes the minting of USDC once the attestation is validated.
+
+**Key actions:**
+
+**receiveMessage():** Called to redeem the message and mint USDC.
+
+**Think of it as:** The “cross-chain post office” — it verifies the sender (via attestation) and forwards the message to the right receiver.
+
+## 🔄 Flow Summary (Ethereum → Avalanche)
+
+### 1. User calls `depositForBurn()` on TokenMessenger (Ethereum)
+   ⮕ USDC Contract: burns the tokens
+   ⮕ TokenMessenger: generates transfer message
+   ⮕ MessageTransmitter: submits it for attestation
+
+### 2. Circle Attestation Service signs the message
+
+### 3. On Avalanche:
+   ⮕ User calls `receiveMessage()` on MessageTransmitter
+   ⮕ Attestation is verified
+   ⮕ TokenMessenger calls USDC contract to mint tokens to the recipient
     
